@@ -1,0 +1,13 @@
+// user: riiusepi32
+// password: G7QBKni6YOnZxzFm
+
+import nodemon from "nodemon"
+
+// mongodb+srv://riiusepi32:G7QBKni6YOnZxzFm@ecommerce.7snro.mongodb.net/
+
+// npm i --save-dev nodemon
+// npm i -g nodemon
+// npm i mongoose
+// npm i -D eslint
+// npx eslint --init // >>> syntax and problems >>> cjs (req/exp) >>> none of these >>> no >>> (barra espacio para seleccionar o quitar) Node >>> yes >>> npm // package.json >> "script" > "dev": "eslint . && nodemon index.js",
+//npm i cors -> para pedir permisos al back y se realice de manera global el chequeo de control
