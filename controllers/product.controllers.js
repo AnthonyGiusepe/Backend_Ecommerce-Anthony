@@ -126,7 +126,14 @@ async function getProductById(req, res) {
         
         const { id } = req.params
 
+        if(req.products.role !== "admin" && id !== req.products._id){
+            return res.status(403).send({
+                message: "No tienes permisos para acceder a este producto"
+            })
+        }
+
         const products = await Product.findById(id)
+        
 
         if (!products) {
             return res.status(404).send({
