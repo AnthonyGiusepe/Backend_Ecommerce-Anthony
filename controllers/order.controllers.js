@@ -11,7 +11,7 @@ async function getOrder(req, res) {
 
         return res.status(200).send({
             message: "Ordenes obtenidas correctamente",
-            Orders: orders
+            orders: orders
         })
 
     } catch (error) {

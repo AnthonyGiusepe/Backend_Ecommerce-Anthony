@@ -7,13 +7,13 @@ const isAdmin = require('../middlewares/isAdmin');
 
 router.get('/products', validation, productControllers.getProducts)
 
-router.post('/products', [upload], productControllers.createProducts)
+router.post('/products', [validation, isAdmin, upload], productControllers.createProducts)
 
 router.get("/products/:id", validation, productControllers.getProductById)
 
 router.delete("/products/:id", [validation, isAdmin], productControllers.deleteProduct)
 
-router.put("/products/:id", [validation, upload], productControllers.updateProduct)
+router.put("/products/:id", [validation, isAdmin, upload], productControllers.updateProduct)
 
 
 module.exports = router
