@@ -33,6 +33,10 @@ async function createUser(req, res) {
 
     const user = new User(req.body)
 
+    if(req.file){
+        user.image = req.file.filename
+    }
+
     bcrypt.hash(user.password, saltRounds, (error, hash) => {
         if (error) {
             return res.status(500).send({
@@ -139,6 +143,10 @@ async function updateUser(req, res) {
         }
 
         const updateUser = await User.findByIdAndUpdate(id, req.body, { new: true })
+
+        if(req.file){
+            updateUser.image = req.file.filename
+        }
 
         bcrypt.hash(updateUser.password, saltRounds, (error, hash) => {
             if (error) {

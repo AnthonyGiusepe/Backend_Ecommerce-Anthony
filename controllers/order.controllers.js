@@ -6,10 +6,12 @@ async function getOrder(req, res) {
 
 //
         const orders = await Order.find()
+                                    .populate('user', "name email")
+                                    .populate('products.product', 'name price image')
 
         return res.status(200).send({
             message: "Ordenes obtenidas correctamente",
-            Orders: orders
+            orders: orders
         })
 
     } catch (error) {
