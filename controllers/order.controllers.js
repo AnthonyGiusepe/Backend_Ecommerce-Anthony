@@ -42,7 +42,82 @@ async function createOrder(req, res) {
     }
 }
 
+async function getOrderByID(req, res) {
+    
+    try {
+        
+        const { id } = req.params
+
+        const order = await Order.findById(id)
+        
+
+        if (!order) {
+            return res.status(404).send({
+                message: "La orden no fue encontrada",
+                ok: false
+            })
+        }
+
+        return res.status(200).send({
+            ok: true,
+            message: "Orden Encontrada",
+            order: order
+        })
+
+    } catch (error) {
+        console.log(error)
+        return res.status(500).send({
+            message: "Error al obtener la orden solicitada"
+        })
+    }
+}
+
+async function deleteOrder(req, res) {
+    try {
+
+        const { id } = req.params
+
+        const deleteOrder = await Order.findByIdAndDelete(id)
+
+        return res.status(200).send({
+            ok: true,
+            message: "La orden fue borrado correctamente",
+            deleteOrder: deleteOrder
+        })
+
+    } catch (error) {
+        console.log(error)
+        return res.status(500).send({
+            ok: false,
+            message: "Error al borrar la orden"
+        })
+    }
+}
+
+async function updateOrder(req, res) {
+
+    const { id } = req.params
+
+    const updateOrder = await Order.findByIdAndUpdate(id, req.body, { new: true } )
+
+    updateOrder.save().then((updateOrder) => {
+
+        return res.status(201).send({
+            ok: true,
+            message: "Orden Actualizada",
+            updateOrder: updateOrder
+        })
+
+    }).catch(error => {
+        console.log(error)
+        return res.send('No se pudo actualizar la orden')
+    })
+}
+
 module.exports = {
     getOrder,
-    createOrder
+    createOrder,
+    getOrderByID,
+    deleteOrder,
+    updateOrder
 }

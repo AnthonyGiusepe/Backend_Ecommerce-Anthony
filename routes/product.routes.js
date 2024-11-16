@@ -5,7 +5,7 @@ const upload = require('../middlewares/uploadFile');
 const validation = require('../middlewares/auth');
 const isAdmin = require('../middlewares/isAdmin');
 
-router.get('/products', validation, productControllers.getProducts)
+router.get('/products', productControllers.getProducts)
 
 router.post('/products', [validation, isAdmin, upload], productControllers.createProducts)
 
