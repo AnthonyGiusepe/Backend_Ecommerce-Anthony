@@ -126,7 +126,7 @@ async function getProductById(req, res) {
         
         const { id } = req.params
 
-        if(req.products.role !== "admin" && id !== req.products._id){
+        if(req.user.role !== "admin" && id !== req.user._id){
             return res.status(403).send({
                 message: "No tienes permisos para acceder a este producto"
             })
@@ -162,6 +162,12 @@ async function deleteProduct(req, res) {
 
         const { id } = req.params
 
+        if(req.user.role !== "admin" && id !== req.user._id){
+            return res.status(403).send({
+                message: "No tienes permisos para acceder a este producto"
+            })
+        }
+
         const deleteProduct = await Product.findByIdAndDelete(id)
 
         return res.status(200).send({
@@ -183,6 +189,12 @@ async function deleteProduct(req, res) {
 async function updateProduct(req, res) {
 
     const { id } = req.params
+
+    if(req.user.role !== "admin" && id !== req.user._id){
+        return res.status(403).send({
+            message: "No tienes permisos para acceder a este producto"
+        })
+    }
 
     const updateProduct = await Product.findByIdAndUpdate(id, req.body, { new: true } )
 
