@@ -105,6 +105,12 @@ async function deleteUser(req, res) {
 
         const { id } = req.params
 
+        if(req.user.role !== "admin" && id !== req.user._id){
+            return res.status(403).send({
+                message: "No tienes permiso para actualizar este usuario"
+            })
+        }
+
         const deleteUser = await User.findByIdAndDelete(id)
 
         return res.status(200).send({
